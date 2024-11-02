@@ -26,12 +26,6 @@ jobs:
             - name: Install dependencies
               run: npm install && npx playwright install
 
-            - name: build
-              env:
-                  BASE_PATH: '/${{ github.event.repository.name }}'
-              run: |
-                  npm run build
-
             - name: run linter
               run: |
                   npm run lint
@@ -40,6 +34,11 @@ jobs:
               run: |
                   npm run test
 
+            - name: build
+              env:
+                  BASE_PATH: '/${{ github.event.repository.name }}'
+              run: |
+                  npm run build
             - name: add .nojekyll
               run: |
                   touch build/.nojekyll
