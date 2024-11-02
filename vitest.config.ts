@@ -1,5 +1,5 @@
-import { defineConfig, configDefaults } from 'vitest/config';
-import react from '@vitejs/plugin-react';
+import { defineConfig, configDefaults } from 'vitest/config'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
     test: {
@@ -7,4 +7,4 @@ export default defineConfig({
         environment: 'jsdom',
     },
     plugins: [react()],
-});
+})
