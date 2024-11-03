@@ -16,7 +16,7 @@ test('BoulderList', () => {
             state: BoulderState.ATTEMPTED,
         },
     ]
-    const { getByLabelText } = render(<BoulderList boulders={boulders} />)
+    const { getByLabelText } = render(<BoulderList boulders={boulders} onClick={() => {}} />)
     const boulder1 = getByLabelText('Boulder 1')
     expect(boulder1.textContent).toBe('Not Attempted')
 })

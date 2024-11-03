@@ -1,3 +1,5 @@
+export type BoulderId = string
+
 export enum BoulderState {
     NOT_ATTEMPTED = 'Not Attempted',
     ATTEMPTED = 'Attempted',
@@ -6,7 +8,7 @@ export enum BoulderState {
 }
 
 export interface Boulder {
-    id: string
+    id: BoulderId
     name: string
     state: BoulderState
 }
