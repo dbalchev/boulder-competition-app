@@ -38,7 +38,7 @@ jobs:
               env:
                   BASE_PATH: '/${{ github.event.repository.name }}'
               run: |
-                  npm run build
+                  BASE_URL=/boulder-competition-app npm run build
             - name: add .nojekyll
               run: |
                   touch ./build/.nojekyll
