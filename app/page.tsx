@@ -1,16 +1,17 @@
-import { Boulder, BoulderList } from './boulderlist'
+import { BoulderList } from './boulderlist'
+import { Boulder, BoulderState } from './types'
 
 export default function Home() {
     const boulders: Boulder[] = [
         {
             id: '1',
             name: 'Boulder 1',
-            state: 'Not Attempted',
+            state: BoulderState.NOT_ATTEMPTED,
         },
         {
             id: '2',
             name: 'Boulder 2',
-            state: 'Flashed',
+            state: BoulderState.FLASHED,
         },
     ]
     return (

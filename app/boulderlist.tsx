@@ -1,12 +1,5 @@
 import { useId } from 'react'
-
-export type BoulderState = 'Not Attempted' | 'Attempted' | 'Flashed' | 'Passed'
-
-export interface Boulder {
-    id: string
-    name: string
-    state: BoulderState
-}
+import { Boulder } from './types'
 
 function BoulderInfo({ boulder }: { boulder: Boulder }) {
     const elementId = useId()

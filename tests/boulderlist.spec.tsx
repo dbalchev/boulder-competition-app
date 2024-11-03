@@ -1,18 +1,19 @@
 import { expect, test } from 'vitest'
 import { render } from '@testing-library/react'
-import { Boulder, BoulderList } from '../app/boulderlist'
+import { BoulderList } from '../app/boulderlist'
+import { Boulder, BoulderState } from '../app/types'
 
 test('BoulderList', () => {
     const boulders: Boulder[] = [
         {
             id: '1',
             name: 'Boulder 1',
-            state: 'Not Attempted',
+            state: BoulderState.NOT_ATTEMPTED,
         },
         {
             id: '2',
             name: 'Boulder 2',
-            state: 'Flashed',
+            state: BoulderState.ATTEMPTED,
         },
     ]
     const { getByLabelText } = render(<BoulderList boulders={boulders} />)
