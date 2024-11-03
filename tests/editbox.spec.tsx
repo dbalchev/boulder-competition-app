@@ -14,6 +14,7 @@ suite('EditBox', () => {
             <EditBox
                 onClose={() => (closeCalled = true)}
                 setState={(newState) => (state = newState)}
+                boulderName="test"
             />
         )
         const closeButton = getByText('Close')
@@ -30,6 +31,7 @@ suite('EditBox', () => {
             <EditBox
                 onClose={() => (closeCalled = true)}
                 setState={(newState) => (state = newState)}
+                boulderName="test"
             />
         )
         const flashButton = getByText('Flashed')

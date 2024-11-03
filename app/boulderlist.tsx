@@ -1,5 +1,5 @@
 import { useId } from 'react'
-import { Boulder, BoulderId } from './types'
+import { Boulder, BoulderId, normalizeState } from './types'
 
 function BoulderInfo({
     boulder,
@@ -9,7 +9,7 @@ function BoulderInfo({
     onClick: (clickedBoulderId: BoulderId) => void
 }) {
     const elementId = useId()
-    const boulderClass = boulder.state.toUpperCase().replaceAll(' ', '_')
+    const boulderClass = normalizeState(boulder.state)
     return (
         <div onClick={() => onClick(boulder.id)} className={`boulder ${boulderClass}`}>
             <span id={elementId}>{boulder.name}</span>
@@ -27,10 +27,10 @@ export function BoulderList({
     onClick: (clickedBoulderId: BoulderId) => void
 }) {
     return (
-        <>
+        <div className="boulderlist">
             {boulders.map((boulder) => (
                 <BoulderInfo boulder={boulder} key={boulder.id} onClick={onClick} />
             ))}
-        </>
+        </div>
     )
 }
