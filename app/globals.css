@@ -40,15 +40,15 @@ body {
 }
 
 .NOT_ATTEMPTED {
-    background-color: var(--not-attempted)
+    background-color: var(--not-attempted);
 }
 
 .FLASHED {
-    background-color: var(--flashed)
+    background-color: var(--flashed);
 }
 
 .ATTEMPTED {
-    background-color: var(--attempted)
+    background-color: var(--attempted);
 }
 
 .PASSED {
@@ -67,12 +67,12 @@ body {
 
     border-radius: 0.5em;
 }
-.setState,.closeEditBox {
+.setState,
+.closeEditBox {
     border: var(--foreground) 1px solid;
 
     border-radius: 2em;
     width: 8em;
-    margin:0.5em;
+    margin: 0.5em;
     display: inline-block;
-
 }

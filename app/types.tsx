@@ -8,7 +8,7 @@ export enum BoulderState {
 }
 
 export function normalizeState(state: string) {
-    for (let keyAndValue of Object.entries(BoulderState)) {
+    for (const keyAndValue of Object.entries(BoulderState)) {
         if (keyAndValue.includes(state)) {
             return keyAndValue[0]
         }

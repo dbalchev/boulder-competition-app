@@ -1,20 +1,51 @@
 'use client'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BoulderList } from './boulderlist'
 import { Boulder, BoulderId, BoulderState } from './types'
 import { EditBox } from './editbox'
-const initialBoulders: Boulder[] = []
 
-for (let n = 1; n <= 55; ++n) {
-    initialBoulders.push({
-        id: `${n}`,
-        name: `Boulder ${n}`,
-        state: BoulderState.NOT_ATTEMPTED,
-    })
+function useLocalState<T>(initialFunction: () => T): [T, (newState: T) => void] {
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+
+    const [reactState, setReactState] = useState(initialFunction)
+
+    useEffect(() => {
+        if (!isClient) {
+            return
+        }
+        const localStorageValue = localStorage.getItem('demo')
+        if (localStorageValue === null) {
+            return
+        }
+        setReactState(JSON.parse(localStorageValue))
+    }, [isClient])
+    const localStorageSet = (newState: T) => {
+        if (isClient) {
+            localStorage.setItem('demo', JSON.stringify(newState))
+        }
+        setReactState(newState)
+    }
+    return [reactState, localStorageSet]
+}
+
+function makeOrReadInitialState(): Boulder[] {
+    const initialBoulders = []
+    for (let n = 1; n <= 55; ++n) {
+        initialBoulders.push({
+            id: `${n}`,
+            name: `Boulder ${n}`,
+            state: BoulderState.NOT_ATTEMPTED,
+        })
+    }
+    return initialBoulders
 }
 
 export default function Home() {
-    const [boulders, setBoulders] = useState(initialBoulders)
+    const [boulders, setBoulders] = useLocalState(makeOrReadInitialState)
     const [selectedId, setSelectedId] = useState<BoulderId | null>(null)
     const setState = (newState: BoulderState) => {
         const newBoulders = boulders.map((boulder) => {
@@ -32,7 +63,7 @@ export default function Home() {
         if (selectedId === null) {
             return null
         }
-        for (let boulder of boulders) {
+        for (const boulder of boulders) {
             if (boulder.id == selectedId) {
                 return boulder
             }
@@ -48,11 +79,11 @@ export default function Home() {
             />
         )
     return (
-        <>
+        <div suppressHydrationWarning={true}>
             <div id="welcome"> Welcome to the bouldering app</div>
             {editbox}
             <br />
             <BoulderList boulders={boulders} onClick={setSelectedId} />
-        </>
+        </div>
     )
 }
