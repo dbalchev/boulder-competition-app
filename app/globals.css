@@ -3,19 +3,47 @@
 @tailwind utilities;
 
 :root {
-    --background: #ffffff;
+    --background: #d1d4c1;
     --foreground: #171717;
+    --not-attempted: white;
+    --flashed: green;
+    --attempted: yellow;
+    --passed: yellowgreen;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     :root {
         --background: #0a0a0a;
         --foreground: #ededed;
     }
-}
+} */
 
 body {
     color: var(--foreground);
     background: var(--background);
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.boulder {
+    border: var(--foreground) 1px solid;
+    display: inline-block;
+    border-radius: 2em;
+    width: 8em;
+    text-align: center;
+}
+
+.boulder.NOT_ATTEMPTED {
+    background-color: var(--not-attempted)
+}
+
+.boulder.FLASHED {
+    background-color: var(--flashed)
+}
+
+.boulder.ATTEMPTED {
+    background-color: var(--attempted)
+}
+
+.boulder.PASSED {
+    background-color: var(--passed);
 }

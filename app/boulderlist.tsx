@@ -9,10 +9,11 @@ function BoulderInfo({
     onClick: (clickedBoulderId: BoulderId) => void
 }) {
     const elementId = useId()
-
+    const boulderClass = boulder.state.toUpperCase().replaceAll(' ', '_')
     return (
-        <div onClick={() => onClick(boulder.id)}>
+        <div onClick={() => onClick(boulder.id)} className={`boulder ${boulderClass}`}>
             <span id={elementId}>{boulder.name}</span>
+            <br />
             <span aria-labelledby={elementId}>{boulder.state}</span>
         </div>
     )
