@@ -41,7 +41,7 @@ jobs:
                   npm run build
             - name: add .nojekyll
               run: |
-                  touch build/.nojekyll
+                  touch ./build/.nojekyll
 
             - name: Upload Artifacts
               uses: actions/upload-pages-artifact@v3
