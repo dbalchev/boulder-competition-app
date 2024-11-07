@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import { BoulderList } from './boulderlist'
+import { BoulderInfo, BoulderList } from './boulderlist'
 import { Boulder, BoulderId, BoulderState } from './types'
 import { EditBox } from './editbox'
 
@@ -78,12 +78,15 @@ export default function Home() {
                 boulderName={selectedBoulder!.name}
             />
         )
+    const boulderComponents = boulders.map((boulder) => (
+        <BoulderInfo boulder={boulder} onClick={setSelectedId} key={boulder.id} />
+    ))
     return (
         <div suppressHydrationWarning={true}>
             <div id="welcome"> Welcome to the bouldering app</div>
             {editbox}
             <br />
-            <BoulderList boulders={boulders} onClick={setSelectedId} />
+            <BoulderList boulderComponents={boulderComponents} />
         </div>
     )
 }

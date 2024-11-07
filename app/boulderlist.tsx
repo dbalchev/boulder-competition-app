@@ -1,13 +1,13 @@
-import { useId } from 'react'
+import { ReactNode, useId } from 'react'
 import { Boulder, BoulderId, normalizeState } from './types'
 
-function BoulderInfo({
+export const BoulderInfo = ({
     boulder,
     onClick,
 }: {
     boulder: Boulder
     onClick: (clickedBoulderId: BoulderId) => void
-}) {
+}) => {
     const elementId = useId()
     const boulderClass = normalizeState(boulder.state)
     return (
@@ -19,18 +19,10 @@ function BoulderInfo({
     )
 }
 
-export function BoulderList({
-    boulders,
-    onClick,
-}: {
-    boulders: Boulder[]
-    onClick: (clickedBoulderId: BoulderId) => void
-}) {
+export function BoulderList({ boulderComponents }: { boulderComponents: ReactNode[] }) {
     return (
         <div className="boulderlist">
-            {boulders.map((boulder) => (
-                <BoulderInfo boulder={boulder} key={boulder.id} onClick={onClick} />
-            ))}
+            {boulderComponents.map((boulderComponent) => boulderComponent)}
         </div>
     )
 }
