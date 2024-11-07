@@ -44,10 +44,15 @@ function makeOrReadInitialState(): Boulder[] {
     return initialBoulders
 }
 
-export default function Home() {
-    const [boulders, setBoulders] = useLocalState(makeOrReadInitialState)
+export const useBoulderSelection = ({
+    boulders,
+    setBoulders,
+}: {
+    boulders: Boulder[]
+    setBoulders: (newState: Boulder[]) => void
+}) => {
     const [selectedId, setSelectedId] = useState<BoulderId | null>(null)
-    const setState = (newState: BoulderState) => {
+    const setSelectedBoulderState = (newState: BoulderState) => {
         const newBoulders = boulders.map((boulder) => {
             if (boulder.id !== selectedId) {
                 return boulder
@@ -70,12 +75,25 @@ export default function Home() {
         }
         throw `unknown boulder with id ${selectedId}`
     }, [selectedId, boulders])
+    return {
+        setSelectedBoulderState,
+        selectedBoulder,
+        setSelectedId,
+    }
+}
+
+export default function Home() {
+    const [boulders, setBoulders] = useLocalState(makeOrReadInitialState)
+    const { setSelectedBoulderState, selectedBoulder, setSelectedId } = useBoulderSelection({
+        boulders,
+        setBoulders,
+    })
     const editbox =
-        selectedId == null ? null : (
+        selectedBoulder == null ? null : (
             <EditBox
                 onClose={() => setSelectedId(null)}
-                setState={setState}
-                boulderName={selectedBoulder!.name}
+                setState={setSelectedBoulderState}
+                boulderName={selectedBoulder.name}
             />
         )
     const boulderComponents = boulders.map((boulder) => (
