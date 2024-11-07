@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, test } from 'vitest'
 import { render, screen, renderHook, cleanup } from '@testing-library/react'
-import Page, { useBoulderSelection } from '../app/page'
+import Page from '../app/page'
 import { Boulder, BoulderState } from '../app/types'
 import { afterEach } from 'node:test'
+import { useBoulderSelection } from '../app/page.state'
 
 test('Page', () => {
     render(<Page />)
