@@ -39,6 +39,7 @@ beforeEach<LocalTestContext>(async (context) => {
     context.competitions = competitions
     context.competitionSelection = competitionSelection
     context.getSelectedId = () => selectedId
+    context.getNewCompetitionRequest = () => newCompetitionRequest
     return async () => {
         cleanup()
     }
@@ -58,12 +59,12 @@ test<LocalTestContext>('CompetitionSelection select', ({
     expect(getSelectedId()).toStrictEqual('foo')
 })
 
-// test<LocalTestContext>('CompetitionSelection create new competition', ({
-//     competitionSelection: { getByText, getByPlaceholderText },
-//     getNewCompetitionRequest,
-// }) => {
-//     fireEvent.change(getByPlaceholderText('New Competition Name'), { target: { value: 'baz' } })
-//     fireEvent.change(getByPlaceholderText('Number of Boulders'), { target: { value: '3' } })
-//     getByText('Create new Competition').click()
-//     expect(getNewCompetitionRequest()).toStrictEqual(['baz', 3])
-// })
+test<LocalTestContext>('CompetitionSelection create new competition', ({
+    competitionSelection: { getByText, getByPlaceholderText },
+    getNewCompetitionRequest,
+}) => {
+    fireEvent.change(getByPlaceholderText('New Competition Name'), { target: { value: 'baz' } })
+    fireEvent.change(getByPlaceholderText('Number of Boulders'), { target: { value: '34' } })
+    getByText('Create new Competition').click()
+    expect(getNewCompetitionRequest()).toStrictEqual(['baz', 34])
+})
