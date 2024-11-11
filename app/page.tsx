@@ -11,21 +11,25 @@ export default function Home() {
     })
     const editbox =
         selectedBoulder == null ? null : (
+            // <dialog open>
             <EditBox
                 onClose={() => setSelectedId(null)}
                 setState={setSelectedBoulderState}
                 boulderName={selectedBoulder.name}
             />
+            // </dialog>
         )
     const boulderComponents = boulders.map((boulder) => (
         <BoulderInfo boulder={boulder} onClick={setSelectedId} key={boulder.id} />
     ))
     return (
-        <div suppressHydrationWarning={true}>
-            <div id="welcome"> Welcome to the bouldering app</div>
+        <>
             {editbox}
-            <br />
-            <BoulderList boulderComponents={boulderComponents} />
-        </div>
+            <div className="scroll-container">
+                <div id="welcome"> Welcome to the bouldering app</div>
+                <br />
+                <BoulderList boulderComponents={boulderComponents} />
+            </div>
+        </>
     )
 }
