@@ -91,19 +91,19 @@ body {
     justify-content: space-around;
     border-radius: 0.5em;
     border: var(--foreground) 1px solid;
-
 }
 .competitionSelection input {
     margin: 0.5em;
 }
 
-.createCompetition, .competition {
+.createCompetition,
+.competition {
     border: var(--foreground) 1px solid;
     display: inline-block;
     border-radius: 2em;
     padding: 0.5em;
 }
-.createCompetition{
+.createCompetition {
     background-color: var(--not-attempted);
 }
 
