@@ -5,31 +5,29 @@ import { Competition, CompetitionSelection } from '../app/competitionselection'
 interface LocalTestContext {
     competitions: Competition[]
     competitionSelection: RenderResult
-    getSelectedId: () => string | null
+    getSelectedName: () => string | null
     getNewCompetitionRequest: () => [string, number] | null
 }
 
 beforeEach<LocalTestContext>(async (context) => {
     let competitions = [
         {
-            id: 'foo',
             name: 'foo',
             lastUpdated: '2024-11-08',
         },
         {
-            id: 'bar',
             name: 'bar',
             lastUpdated: '2024-11-09',
         },
     ]
 
-    let selectedId: string | null = null
+    let selectedName: string | null = null
     let newCompetitionRequest: [string, number] | null = null
     let competitionSelection = render(
         <CompetitionSelection
             competitions={competitions}
-            setSelectedId={(id) => {
-                selectedId = id
+            setSelectedName={(name) => {
+                selectedName = name
             }}
             createNewCompetition={(name: string, numBoulders: number) => {
                 newCompetitionRequest = [name, numBoulders]
@@ -38,7 +36,7 @@ beforeEach<LocalTestContext>(async (context) => {
     )
     context.competitions = competitions
     context.competitionSelection = competitionSelection
-    context.getSelectedId = () => selectedId
+    context.getSelectedName = () => selectedName
     context.getNewCompetitionRequest = () => newCompetitionRequest
     return async () => {
         cleanup()
@@ -53,10 +51,10 @@ test<LocalTestContext>('CompetitionSelection order', ({ competitionSelection: { 
 
 test<LocalTestContext>('CompetitionSelection select', ({
     competitionSelection: { getByText },
-    getSelectedId,
+    getSelectedName,
 }) => {
     getByText('foo').click()
-    expect(getSelectedId()).toStrictEqual('foo')
+    expect(getSelectedName()).toStrictEqual('foo')
 })
 
 test<LocalTestContext>('CompetitionSelection create new competition', ({

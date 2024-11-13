@@ -1,18 +1,17 @@
 import { useState } from 'react'
 
 export interface Competition {
-    id: string
     name: string
     lastUpdated: string
 }
 
 export const CompetitionSelection = ({
     competitions,
-    setSelectedId,
+    setSelectedName,
     createNewCompetition,
 }: {
     competitions: Competition[]
-    setSelectedId: (id: string) => void
+    setSelectedName: (name: string) => void
     createNewCompetition: (name: string, numBoulders: number) => void
 }) => {
     const [competitionName, setCompetitionName] = useState('')
@@ -52,7 +51,11 @@ export const CompetitionSelection = ({
             {competitions
                 .toSorted((lh, rh) => -lh.lastUpdated.localeCompare(rh.lastUpdated))
                 .map((c) => (
-                    <div className="competition" key={c.id} onClick={() => setSelectedId(c.id)}>
+                    <div
+                        className="competition"
+                        key={c.name}
+                        onClick={() => setSelectedName(c.name)}
+                    >
                         {c.name}
                     </div>
                 ))}
