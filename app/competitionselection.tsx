@@ -17,7 +17,7 @@ export const CompetitionSelection = ({
     const [numberOfBoulders, setNumberOfBoulders] = useState<number | null>(null)
     return (
         <>
-            <div>
+            <div className="competitionSelection">
                 <input
                     placeholder="New Competition Name"
                     value={competitionName}
@@ -37,6 +37,7 @@ export const CompetitionSelection = ({
                     }}
                 />
                 <div
+                    className="createCompetition"
                     onClick={() => {
                         if (!competitionName || numberOfBoulders === null) {
                             return
@@ -47,17 +48,20 @@ export const CompetitionSelection = ({
                     Create new Competition
                 </div>
             </div>
-            {competitions
-                .toSorted((lh, rh) => lh.name.localeCompare(rh.name))
-                .map((c) => (
-                    <div
-                        className="competition"
-                        key={c.name}
-                        onClick={() => setSelectedName(c.name)}
-                    >
-                        {c.name}
-                    </div>
-                ))}
+            <p className="competitionSelectionLabel">Go to existing competition</p>
+            <div className="competitionSelection">
+                {competitions
+                    .toSorted((lh, rh) => lh.name.localeCompare(rh.name))
+                    .map((c) => (
+                        <div
+                            className="competition"
+                            key={c.name}
+                            onClick={() => setSelectedName(c.name)}
+                        >
+                            {c.name}
+                        </div>
+                    ))}
+            </div>
         </>
     )
 }

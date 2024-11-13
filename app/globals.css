@@ -84,3 +84,29 @@ body {
     height: 100%;
     overflow: scroll;
 }
+
+.competitionSelection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-radius: 0.5em;
+    border: var(--foreground) 1px solid;
+
+}
+.competitionSelection input {
+    margin: 0.5em;
+}
+
+.createCompetition, .competition {
+    border: var(--foreground) 1px solid;
+    display: inline-block;
+    border-radius: 2em;
+    padding: 0.5em;
+}
+.createCompetition{
+    background-color: var(--not-attempted);
+}
+
+.competition {
+    background-color: var(--attempted);
+}
