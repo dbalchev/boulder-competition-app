@@ -13,11 +13,9 @@ beforeEach<LocalTestContext>(async (context) => {
     let competitions = [
         {
             name: 'foo',
-            lastUpdated: '2024-11-08',
         },
         {
             name: 'bar',
-            lastUpdated: '2024-11-09',
         },
     ]
 

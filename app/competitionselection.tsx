@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 export interface Competition {
     name: string
-    lastUpdated: string
 }
 
 export const CompetitionSelection = ({
@@ -49,7 +48,7 @@ export const CompetitionSelection = ({
                 </div>
             </div>
             {competitions
-                .toSorted((lh, rh) => -lh.lastUpdated.localeCompare(rh.lastUpdated))
+                .toSorted((lh, rh) => lh.name.localeCompare(rh.name))
                 .map((c) => (
                     <div
                         className="competition"
