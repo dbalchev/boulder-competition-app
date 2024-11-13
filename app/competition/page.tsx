@@ -3,11 +3,11 @@ import { useSearchParams } from 'next/navigation'
 import { BoulderInfo, BoulderList } from '../boulderlist'
 import { EditBox } from '../editbox'
 import { useLocalStorage, useLocalStorageState, useBoulderSelection } from '../page.state'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Boulder } from '../types'
 
-export default function Home() {
+const CompetitionPage = () => {
     const storage = useLocalStorage()
     const searchParams = useSearchParams()
     const currentCompetition = searchParams.get('competition')
@@ -50,5 +50,13 @@ export default function Home() {
                 <BoulderList boulderComponents={boulderComponents} />
             </div>
         </>
+    )
+}
+
+export default function Home() {
+    return (
+        <Suspense>
+            <CompetitionPage />
+        </Suspense>
     )
 }
