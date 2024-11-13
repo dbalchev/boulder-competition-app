@@ -1,32 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Boulder, BoulderId, BoulderState } from './types'
 
-export function useLocalState<T>(initialFunction: () => T): [T, (newState: T) => void] {
-    const [isClient, setIsClient] = useState(false)
-
-    useEffect(() => {
-        setIsClient(true)
-    }, [])
-
-    const [reactState, setReactState] = useState(initialFunction)
-
-    useEffect(() => {
-        if (!isClient) {
-            return
-        }
-        const localStorageValue = localStorage.getItem('demo')
-        if (localStorageValue === null) {
-            return
-        }
-        setReactState(JSON.parse(localStorageValue))
-    }, [isClient])
-    const localStorageSet = (newState: T) => {
-        if (isClient) {
-            localStorage.setItem('demo', JSON.stringify(newState))
-        }
-        setReactState(newState)
-    }
-    return [reactState, localStorageSet]
+export interface LocalStateSystem {
+    getLocalStateKeys: () => string[]
+    useLocalState: (
+        localStateKey: string
+    ) => <T>(initialFunction: () => T) => [T, (newState: T) => void]
 }
 
 export function makeOrReadInitialState(): Boulder[] {
@@ -39,6 +18,40 @@ export function makeOrReadInitialState(): Boulder[] {
         })
     }
     return initialBoulders
+}
+
+export const useLocalStorage = (): Storage | null => {
+    const [storage, setStorage] = useState<Storage | null>(null)
+
+    useEffect(() => {
+        setStorage(localStorage)
+    }, [])
+    return storage
+}
+
+export const useLocalStorageState = <T,>(
+    storage: Storage | null,
+    localStorageKey: string,
+    initialFunction: () => T
+): [T, (newState: T) => void] => {
+    const [reactState, setReactState] = useState(initialFunction)
+    useEffect(() => {
+        if (storage === null) {
+            return
+        }
+        const savedValue = storage.getItem(localStorageKey)
+        if (savedValue === null) {
+            return
+        }
+        setReactState(JSON.parse(savedValue))
+    }, [storage, localStorageKey])
+    const localStorageSet = (newState: T) => {
+        if (storage !== null) {
+            storage.setItem(localStorageKey, JSON.stringify(newState))
+        }
+        setReactState(newState)
+    }
+    return [reactState, localStorageSet]
 }
 
 export const useBoulderSelection = ({

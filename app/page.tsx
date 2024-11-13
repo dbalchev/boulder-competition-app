@@ -1,10 +1,16 @@
 'use client'
 import { BoulderInfo, BoulderList } from './boulderlist'
 import { EditBox } from './editbox'
-import { useLocalState, useBoulderSelection, makeOrReadInitialState } from './page.state'
+import {
+    useLocalStorage,
+    useLocalStorageState,
+    useBoulderSelection,
+    makeOrReadInitialState,
+} from './page.state'
 
 export default function Home() {
-    const [boulders, setBoulders] = useLocalState(makeOrReadInitialState)
+    const storage = useLocalStorage()
+    const [boulders, setBoulders] = useLocalStorageState(storage, 'demo', makeOrReadInitialState)
     const { setSelectedBoulderState, selectedBoulder, setSelectedId } = useBoulderSelection({
         boulders,
         setBoulders,
