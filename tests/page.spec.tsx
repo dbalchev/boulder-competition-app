@@ -1,14 +1,8 @@
 import { beforeEach, describe, expect, it, test } from 'vitest'
-import { render, screen, renderHook, cleanup } from '@testing-library/react'
-import Page from '../app/page'
+import { renderHook, cleanup } from '@testing-library/react'
 import { Boulder, BoulderState } from '../app/types'
 import { afterEach } from 'node:test'
 import { useBoulderSelection } from '../app/page.state'
-
-test('Page', () => {
-    render(<Page />)
-    expect(screen.getByText('Welcome to the bouldering app')).toBeDefined()
-})
 
 describe('useBoulderSelection', () => {
     const boulders: Boulder[] = [

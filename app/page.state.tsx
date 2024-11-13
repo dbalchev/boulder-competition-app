@@ -8,9 +8,9 @@ export interface LocalStateSystem {
     ) => <T>(initialFunction: () => T) => [T, (newState: T) => void]
 }
 
-export function makeOrReadInitialState(): Boulder[] {
+export function makeOrReadInitialState(nBoulders: number): Boulder[] {
     const initialBoulders = []
-    for (let n = 1; n <= 55; ++n) {
+    for (let n = 1; n <= nBoulders; ++n) {
         initialBoulders.push({
             id: `${n}`,
             name: `Boulder ${n}`,
@@ -31,12 +31,11 @@ export const useLocalStorage = (): Storage | null => {
 
 export const useLocalStorageState = <T,>(
     storage: Storage | null,
-    localStorageKey: string,
-    initialFunction: () => T
-): [T, (newState: T) => void] => {
-    const [reactState, setReactState] = useState(initialFunction)
+    localStorageKey: string | null
+): [T | null, (newState: T) => void] => {
+    const [reactState, setReactState] = useState<T | null>(null)
     useEffect(() => {
-        if (storage === null) {
+        if (storage === null || localStorageKey === null) {
             return
         }
         const savedValue = storage.getItem(localStorageKey)
@@ -46,7 +45,7 @@ export const useLocalStorageState = <T,>(
         setReactState(JSON.parse(savedValue))
     }, [storage, localStorageKey])
     const localStorageSet = (newState: T) => {
-        if (storage !== null) {
+        if (storage !== null && localStorageKey !== null) {
             storage.setItem(localStorageKey, JSON.stringify(newState))
         }
         setReactState(newState)
