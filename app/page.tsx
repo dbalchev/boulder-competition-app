@@ -19,7 +19,7 @@ export default function Home() {
     const goToCompetition = (name: string) => {
         const searchParams = new URLSearchParams()
         searchParams.append('competition', name)
-        router.push('competition?' + searchParams.toString())
+        router.push('/competition?' + searchParams.toString())
     }
     const createCompetitoinAndGo = (name: string, numBoulders: number) => {
         localStorage.setItem(name, JSON.stringify(makeOrReadInitialState(numBoulders)))

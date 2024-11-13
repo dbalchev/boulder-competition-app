@@ -15,7 +15,7 @@ export default function Home() {
 
     useEffect(() => {
         if (currentCompetition === null) {
-            router.push('..')
+            router.push('/')
         }
     }, [currentCompetition, router])
 
